@@ -51,16 +51,20 @@ const Success = async ({
 
         <section className="request-details">
           <p>Requested appointment details:</p>
-          <div className="flex items-center gap-3">
-            <Image
-              src={doctor?.image!}
-              width={100}
-              height={100}
-              alt="doctor"
-              className="size-6"
-            />
-            <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
-          </div>
+          {doctor ? (
+            <div className="flex items-center gap-3">
+              <Image
+                src={doctor.image}
+                width={100}
+                height={100}
+                alt="doctor"
+                className="size-6"
+              />
+              <p className="whitespace-nowrap">Dr. {doctor.name}</p>
+            </div>
+          ) : (
+            <p>Doctor information not available</p>
+          )}
           <div className="flex gap-2">
             <Image
               src="/assets/icons/calendar.svg"

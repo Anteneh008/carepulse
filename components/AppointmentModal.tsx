@@ -7,11 +7,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { Button } from "./ui/button";
-import AppointmentForm from "./forms/AppointmentForm";
-import { string } from "zod";
 import { Appointment } from "@/types/appwrite.types";
+import { useState } from "react";
+import AppointmentForm from "./forms/AppointmentForm";
+import { Button } from "./ui/button";
 
 const AppointmentModal = ({
   type,

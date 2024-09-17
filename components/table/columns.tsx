@@ -1,14 +1,12 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
-import StatusBadge from "../StatusBadge";
-import { formatDateTime } from "@/lib/utils";
 import { Doctors } from "@/constants";
+import { formatDateTime } from "@/lib/utils";
+import { Appointment } from "@/types/appwrite.types";
+import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import AppointmentModal from "../AppointmentModal";
-import { Appointment } from "@/types/appwrite.types";
+import StatusBadge from "../StatusBadge";
 
 
 

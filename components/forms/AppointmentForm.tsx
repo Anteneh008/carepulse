@@ -68,7 +68,6 @@ const AppointmentForm = ({
         break;
     }
 
-
     try {
       if (type === "create" && patientId) {
         const appointmentData = {
@@ -89,24 +88,27 @@ const AppointmentForm = ({
           );
         }
       } else {
-        console.log("updating appointment");
-        const appointmentToUpdate = {
-          userId,
-          appointmentId: appointment?.$id!,
-          appointment: {
-            primaryPhysician: values?.primaryPhysician,
-            schedule: new Date(values?.schedule),
-            status: status as Status,
-            cancellationReason: values.cancellationReason,
-          },
-          type,
-        };
+        if (appointment?.$id) {
+          const appointmentToUpdate = {
+            userId,
+            appointmentId: appointment.$id,
+            appointment: {
+              primaryPhysician: values?.primaryPhysician,
+              schedule: new Date(values?.schedule),
+              status: status as Status,
+              cancellationReason: values.cancellationReason,
+            },
+            type,
+          };
 
-        const updatedAppointment = await updateAppointment(appointmentToUpdate);
+          const updatedAppointment = await updateAppointment(
+            appointmentToUpdate
+          );
 
-        if (updatedAppointment) {
-          setOpen && setOpen(false);
-          form.reset();
+          if (updatedAppointment) {
+            setOpen && setOpen(false);
+            form.reset();
+          }
         }
       }
     } catch (error) {

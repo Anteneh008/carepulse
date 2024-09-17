@@ -1,27 +1,27 @@
 "use client";
 
 import { Form, FormControl } from "@/components/ui/form";
-import { createUser, registerPatient } from "@/lib/actions/patient.actions";
-import { PatientFormValidation, UserFormValidation } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import CustomFormField from "../CustomFormField";
-import SubmitButton from "../SubmitButton";
-import { FormFieldType } from "./PatientForm";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import {
   Doctors,
   GenderOptions,
   IdentificationTypes,
   PatientFormDefaultValues,
 } from "@/constants";
-import { Label } from "../ui/label";
-import { SelectItem } from "../ui/select";
+import { registerPatient } from "@/lib/actions/patient.actions";
+import { PatientFormValidation } from "@/lib/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import CustomFormField from "../CustomFormField";
 import FileUploader from "../FileUploader";
+import SubmitButton from "../SubmitButton";
+import { Label } from "../ui/label";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { SelectItem } from "../ui/select";
+import { FormFieldType } from "./PatientForm";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -49,23 +49,23 @@ const RegisterForm = ({ user }: { user: User }) => {
         type: values.identificationDocument[0].type,
       });
 
-      formData = new FormData()
-      formData.append("blobFile", blobFile)
-      formData.append("fileName", values.identificationDocument[0].name)
+      formData = new FormData();
+      formData.append("blobFile", blobFile);
+      formData.append("fileName", values.identificationDocument[0].name);
     }
 
     try {
-     const patientData = {
-      ...values,
-      userId: user.$id,
-      birthDate: new Date(values.birthDate),
-      identificationDocument: formData,
-     }
+      const patientData = {
+        ...values,
+        userId: user.$id,
+        birthDate: new Date(values.birthDate),
+        identificationDocument: formData,
+      };
 
-    //  @ts-ignore
-     const patient = await registerPatient(patientData)
+      // @ts-expect-error: Type mismatch due to formData structure in patientData
+      const patient = await registerPatient(patientData);
 
-     if(patient) router.push(`/patients/${user.$id}/new-appointment`)
+      if (patient) router.push(`/patients/${user.$id}/new-appointment`);
     } catch (error) {
       console.log(error);
     }
@@ -151,7 +151,7 @@ const RegisterForm = ({ user }: { user: User }) => {
             )}
           />
         </div>
-        
+
         <div className="flex flex-col gap-6 xl:flex-row">
           <CustomFormField
             fieldType={FormFieldType.INPUT}
